@@ -1,11 +1,18 @@
 package com.tobeto.spring.b.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Entity
 @Table(name = "address")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,9 +32,10 @@ public class Address {
     private County county;
 
     @ManyToOne
-    @JoinColumn(name="customer_id")
+    @JoinColumn(name = "customer_id")
     private Customer customer;
 
     @OneToMany(mappedBy = "address")
+    @JsonIgnore
     private List<Bill> bills;
 }
