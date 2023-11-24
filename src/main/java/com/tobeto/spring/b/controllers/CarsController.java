@@ -1,11 +1,15 @@
 package com.tobeto.spring.b.controllers;
 
-import com.tobeto.spring.b.entities.Brand;
+import com.tobeto.spring.b.dtos.requests.car.AddCarRequest;
+import com.tobeto.spring.b.dtos.requests.car.UpdateCarRequest;
+import com.tobeto.spring.b.dtos.responses.car.GetCarListResponse;
+import com.tobeto.spring.b.dtos.responses.car.GetCarResponse;
+
 import com.tobeto.spring.b.entities.Car;
 import com.tobeto.spring.b.repositories.CarRepository;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -19,36 +23,45 @@ public class CarsController {
     }
 
     @GetMapping
-    public List<Car> getAll() {
-        return carRepository.findAll();
+    public List<GetCarListResponse> getAll() {
+        List<Car> carList= carRepository.findAll();
+        List<GetCarListResponse> getCarListResponses=new ArrayList<>();
+        for (Car car: carList) {
+            GetCarListResponse response = new GetCarListResponse();
+            response.setModelName(car.getModelName());
+            response.setColor(car.getColor());
+            response.setShiftType(car.getShiftType());
+            getCarListResponses.add(response);
+        }
+        return getCarListResponses;
     }
 
     @GetMapping("{id}")
-    public Car getById(@PathVariable int id) {
-        return carRepository.findById(id).orElseThrow();
+    public GetCarResponse getById(@PathVariable int id) {
+        Car car = carRepository.findById(id).orElseThrow();
+        GetCarResponse getCarResponse =new GetCarResponse();
+
+        getCarResponse.setModelYear(car.getModelYear());
+        getCarResponse.setPrice(car.getPrice());
+        return getCarResponse;
     }
 
     @PostMapping
-    public void add(@RequestBody Car car) {
+    public void add(@RequestBody AddCarRequest carForAddDto) {
+        Car car = new Car();
+        car.setModelName(carForAddDto.getModelName());
+        car.setModelYear(carForAddDto.getModelYear());
         carRepository.save(car);
     }
     @PutMapping("{id}")
-    public Car update(@RequestBody Car newCar,@PathVariable int id){
+    public void update(@RequestBody UpdateCarRequest updateCarRequest, @PathVariable int id){
         Optional<Car> car= carRepository.findById(id);
         if (car.isPresent()){
             Car foundCar=car.get();
-            foundCar.setId(newCar.getId());
-            foundCar.setModelYear(newCar.getModelYear());
-            foundCar.setModelName(newCar.getModelName());
-            foundCar.setColor(newCar.getColor());
-            foundCar.setFuelType(newCar.getFuelType());
-            foundCar.setShiftType(newCar.getShiftType());
-            foundCar.setPrice(newCar.getPrice());
+            foundCar.setColor(updateCarRequest.getColor());
+            foundCar.setModelName(updateCarRequest.getModelName());
             carRepository.save(foundCar);
-            return foundCar;
-        }
-        else {
-            return null;
+
         }
     }
     @DeleteMapping("{id}")

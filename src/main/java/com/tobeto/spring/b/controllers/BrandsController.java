@@ -1,10 +1,16 @@
 package com.tobeto.spring.b.controllers;
 
-import com.tobeto.spring.b.entities.Address;
+import com.tobeto.spring.b.dtos.requests.brand.AddBrandRequest;
+import com.tobeto.spring.b.dtos.requests.brand.UpdateBrandRequest;
+import com.tobeto.spring.b.dtos.responses.brand.GetBrandListResponse;
+import com.tobeto.spring.b.dtos.responses.brand.GetBrandResponse;
+import com.tobeto.spring.b.dtos.responses.car.GetCarListResponse;
 import com.tobeto.spring.b.entities.Brand;
+import com.tobeto.spring.b.entities.Car;
 import com.tobeto.spring.b.repositories.BrandRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,30 +29,46 @@ public class BrandsController {
     //spring Ioc container
 
     @GetMapping
-    public List<Brand> getAll() {
-        return brandRepository.findAll();
+    //List<BrandForListiningDto> => id,name
+    public List<GetBrandListResponse> getAll() {
+        List<Brand> brandList= brandRepository.findAll();
+        List<GetBrandListResponse> getBrandListResponseList=new ArrayList<>();
+        for (Brand brand: brandList) {
+            GetBrandListResponse response = new GetBrandListResponse();
+            response.setName(brand.getName());
+            getBrandListResponseList.add(response);
+        }
+        return getBrandListResponseList;
     }
 
     @GetMapping("{id}")
-    public Brand getById(@PathVariable int id) {
+    //Brand x
+    //BrandForDetailDto
+    public GetBrandResponse getById(@PathVariable int id) {
         // Optional<T> => ilgili filtreden bir veri dönmeyebilir
-        return brandRepository.findById(id).orElseThrow();
+        Brand brand = brandRepository.findById(id).orElseThrow();
+        GetBrandResponse dto =new GetBrandResponse();
+        dto.setName(brand.getName());
+        return dto;
     }
 
     @PostMapping
-    public void add(@RequestBody Brand brand) {
+    //Brand X
+    //BrandForAddDto
+    public void add(@RequestBody AddBrandRequest brandForAddDto) {
+        //manuel maping => Auto Mapping
+        Brand brand =new Brand();
+        brand.setName(brandForAddDto.getName());
         brandRepository.save(brand);
     }
 
     @PutMapping("{id}")
-    public Brand update(@RequestBody Brand newBrand,@PathVariable int id) {
+    public Brand update(@RequestBody UpdateBrandRequest updateBrandRequest, @PathVariable int id) {
 
         Optional<Brand> brand= brandRepository.findById(id);
         if (brand.isPresent()){
             Brand foundBrand=brand.get();
-            foundBrand.setId(newBrand.getId());
-            foundBrand.setName(newBrand.getName());
-            foundBrand.setType(newBrand.getType());
+            foundBrand.setName(updateBrandRequest.getName());
             brandRepository.save(foundBrand);
             return foundBrand;
         }
@@ -66,3 +88,6 @@ public class BrandsController {
         brandRepository.deleteById(id);
     }
 }
+//DTO -> DATA TRANSFER OBJECT
+//her istek için request bir responce modeli bulunmaktadır
+//AddBrandResponce add(AddBrandResponce request)
