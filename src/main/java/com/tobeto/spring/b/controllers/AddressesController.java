@@ -1,13 +1,13 @@
 package com.tobeto.spring.b.controllers;
 
-import com.tobeto.spring.b.dtos.requests.address.AddAddressRequest;
-import com.tobeto.spring.b.dtos.responses.address.GetAddressListResponse;
-import com.tobeto.spring.b.dtos.responses.address.GetAddressResponse;
-import com.tobeto.spring.b.dtos.responses.car.GetCarListResponse;
-import com.tobeto.spring.b.dtos.responses.car.GetCarResponse;
+import com.tobeto.spring.b.services.abstracts.AddressService;
+import com.tobeto.spring.b.services.dtos.requests.address.AddAddressRequest;
+import com.tobeto.spring.b.services.dtos.requests.address.UpdateAddressRequest;
+import com.tobeto.spring.b.services.dtos.responses.address.GetAddressListResponse;
+import com.tobeto.spring.b.services.dtos.responses.address.GetAddressResponse;
 import com.tobeto.spring.b.entities.Address;
-import com.tobeto.spring.b.entities.Car;
 import com.tobeto.spring.b.repositories.AddressRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -16,52 +16,29 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("api/address")
+@AllArgsConstructor
 public class AddressesController {
-    private final AddressRepository addressRepository;
+    private final AddressService addressService;
 
-    public AddressesController(AddressRepository addressRepository) {
-        this.addressRepository = addressRepository;
-    }
-
+    @GetMapping
     public List<GetAddressListResponse> getAll(){
-        List<Address> addressList= addressRepository.findAll();
-        List<GetAddressListResponse> getAddressListResponseList=new ArrayList<>();
-        for (Address address: addressList) {
-            GetAddressListResponse response = new GetAddressListResponse();
-            response.setPostalCode(address.getPostalCode());
-            response.setAddressDetail(address.getAddressDetail());
-            getAddressListResponseList.add(response);
-        }
-        return getAddressListResponseList;
+        return addressService.getAll();
     }
     @GetMapping("{id}")
     public GetAddressResponse getById(@PathVariable int id){
-        Address address = addressRepository.findById(id).orElseThrow();
-        GetAddressResponse getAddressResponse =new GetAddressResponse();
-        getAddressResponse.setPostalCode(address.getPostalCode());
-        getAddressResponse.setAddressDetail(address.getAddressDetail());
-        return getAddressResponse;
+        return addressService.getById(id);
     }
     @PostMapping
-    public void add(@RequestBody GetAddressResponse addressResponse){
-        Address address = new Address();
-        address.setPostalCode(addressResponse.getPostalCode());
-        address.setAddressDetail(addressResponse.getAddressDetail());
-        addressRepository.save(address);
+    public void add(@RequestBody AddAddressRequest addAddressRequest){
+        addressService.add(addAddressRequest);
     }
     @PutMapping("{id}")
-    public void update(@RequestBody AddAddressRequest addAddressRequest, @PathVariable int id){
-        Optional<Address> address= addressRepository.findById(id);
-        if (address.isPresent()){
-            Address foundAddress=address.get();
-            foundAddress.setPostalCode(addAddressRequest.getPostalCode());
-            foundAddress.setAddressDetail(addAddressRequest.getAddressDetail());
-            addressRepository.save(foundAddress);
-        }
+    public void update(@RequestBody UpdateAddressRequest updateAddressRequest, @PathVariable int id){
+        addressService.update(updateAddressRequest,id);
 
     }
     @DeleteMapping
     public void delete(@PathVariable int id){
-        addressRepository.deleteById(id);
+        addressService.delete(id);
     }
 }
