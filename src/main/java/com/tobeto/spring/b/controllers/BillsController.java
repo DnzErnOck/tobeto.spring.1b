@@ -10,6 +10,7 @@ import com.tobeto.spring.b.repositories.BillRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,5 +40,14 @@ public class BillsController {
     @DeleteMapping("{id}")
     public void delete(@PathVariable int id){
         billService.delete(id);
+    }
+
+    @GetMapping("getDate")
+    public List<GetBillListResponse> searchDate(@RequestParam LocalDate billDate){
+        return billService.searchDate(billDate);
+    }
+    @GetMapping("getPrice")
+    public GetBillResponse getByPrice(@RequestParam Double totalPrice){
+        return billService.getByPrice(totalPrice);
     }
 }
