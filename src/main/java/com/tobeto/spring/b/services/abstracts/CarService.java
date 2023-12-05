@@ -15,5 +15,6 @@ public interface CarService {
     void add(AddCarRequest addCarRequest);
     void update(UpdateCarRequest carRequest,int id);
     void delete(int id);
+    List<GetCarListResponse> getAll2();
 
 }

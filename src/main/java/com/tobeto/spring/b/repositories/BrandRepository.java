@@ -23,6 +23,4 @@ public interface BrandRepository extends JpaRepository<Brand, Integer> {
     @Query("select new com.tobeto.spring.b.services.dtos.responses.brand.GetBrandListResponse(b.name) from Brand b where b.name like %:name%")
     List<GetBrandListResponse> search3(String name);
 
-    @Query(value = "select b.name from brands b where b.name like %:name%",nativeQuery = true)
-    List<GetBrandListResponse> search4(String name);
 }

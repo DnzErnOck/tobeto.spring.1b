@@ -44,6 +44,9 @@ public class CarsController {
         carService.delete(id);
     }
 
-
+    @GetMapping("getAll")
+    public List<GetCarListResponse> getAll2() {
+        return carService.getAll2();
+    }
 
 }
