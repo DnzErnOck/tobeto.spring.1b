@@ -74,8 +74,8 @@ public class BrandManager implements BrandService {
     }
 
     @Override
-    public List<Brand> search(String name) {
-        return brandRepository.search2(name);
+    public List<GetBrandListResponse> search(String name) {
+        return brandRepository.search3(name);
     }
 
 
