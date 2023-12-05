@@ -63,4 +63,10 @@ public class BrandManager implements BrandService {
         brandRepository.deleteById(id);
     }
 
+    @Override
+    public List<Brand> getByName(String name,int id) {
+        return brandRepository.findByNameLikeOrIdEquals("%"+name+"%",id);
+    }
+
+
 }

@@ -20,7 +20,7 @@ import java.util.Optional;
 public class BrandsController {
 
     private final BrandService brandService;
-    @GetMapping
+    @GetMapping("getAll")
     //List<BrandForListiningDto> => id,name
     public List<GetBrandListResponse> getAll(@RequestBody GetBrandListResponse getBrandListResponse) {
        return this.brandService.getAll();
@@ -29,6 +29,8 @@ public class BrandsController {
     public GetBrandResponse getById(@PathVariable int id){
         return this.brandService.getById(id);
     }
+
+
     @PostMapping
     public void add(@RequestBody AddBrandRequest addBrandRequest){
         this.brandService.add(addBrandRequest);
@@ -42,6 +44,10 @@ public class BrandsController {
         this.brandService.delete(id);
     }
 
+    @GetMapping
+    public List<Brand> getByName(@RequestParam String name,@RequestParam int id){
+        return this.brandService.getByName(name,id);
+    }
 }
 //DTO -> DATA TRANSFER OBJECT
 //her istek için request bir responce modeli bulunmaktadır
