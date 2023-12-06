@@ -12,6 +12,7 @@ import java.util.List;
 public interface BrandRepository extends JpaRepository<Brand, Integer> {
     // Derived Query Method
     List<Brand> findByNameLikeOrIdEquals(String name,int id);
+    List<Brand> findByName(String name);
     //jpa+sql => jpql
     //JPQL => tablo ismi değil entitiy ismi
     @Query("select b from Brand b where b.name like %:name%")
