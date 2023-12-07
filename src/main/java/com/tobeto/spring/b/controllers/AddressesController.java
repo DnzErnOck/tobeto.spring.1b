@@ -41,4 +41,13 @@ public class AddressesController {
     public void delete(@PathVariable int id){
         addressService.delete(id);
     }
+
+    @GetMapping("getAddressDetails")
+    public List<GetAddressListResponse> containAdresssDetails(@RequestParam String addressDetail){
+        return addressService.containAdresssDetails(addressDetail);
+    }
+    @GetMapping("nullAddressDetails")
+    public List<GetAddressListResponse> nullAdressDetails(){
+        return addressService.nullAdressDetails();
+    }
 }

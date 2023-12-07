@@ -14,4 +14,6 @@ public interface CustomerService {
     void add(AddCustomerRequest addCustomerRequest);
     void update(UpdateCustomerRequest updateCustomerRequest, int id);
     void delete(int id);
+    List<GetListCustomerResponse> getGreaterAger(int age);
+    List<GetListCustomerResponse> getNameAndSurname(String name,String surName);
 }

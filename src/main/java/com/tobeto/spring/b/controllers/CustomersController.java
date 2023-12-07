@@ -41,4 +41,13 @@ public class CustomersController {
     public void delete(@PathVariable int id){
         customerService.delete(id);
     }
+
+    @GetMapping("getAge")
+    public List<GetListCustomerResponse> getGreaterAger(@RequestParam int age){
+        return customerService.getGreaterAger(age);
+    }
+    @GetMapping("getNameAndSurname")
+    public List<GetListCustomerResponse> getNameAndSurname(@RequestParam String name, @RequestParam String surName){
+        return customerService.getNameAndSurname(name,surName);
+    }
 }

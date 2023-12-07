@@ -13,4 +13,6 @@ public interface CityService {
     void add(AddCityRequest addCityRequest);
     void update(UpdateCityRequest updateCityRequest,int id);
     void delete(int id);
+    GetCityResponse notName(String name);
+    GetCityResponse nameNotLike(String name);
 }

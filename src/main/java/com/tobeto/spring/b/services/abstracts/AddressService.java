@@ -14,4 +14,6 @@ public interface AddressService {
     void add(AddAddressRequest addAddressRequest);
     void update(UpdateAddressRequest updateAddressRequest,int id);
     void delete(int id);
+    List<GetAddressListResponse> containAdresssDetails(String addressDetail);
+    List<GetAddressListResponse> nullAdressDetails();
 }

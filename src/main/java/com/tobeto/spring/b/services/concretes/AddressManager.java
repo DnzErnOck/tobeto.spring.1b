@@ -7,6 +7,7 @@ import com.tobeto.spring.b.services.dtos.requests.address.AddAddressRequest;
 import com.tobeto.spring.b.services.dtos.requests.address.UpdateAddressRequest;
 import com.tobeto.spring.b.services.dtos.responses.address.GetAddressListResponse;
 import com.tobeto.spring.b.services.dtos.responses.address.GetAddressResponse;
+import com.tobeto.spring.b.services.dtos.responses.city.GetCityListResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -63,5 +64,37 @@ public class AddressManager implements AddressService {
     @Override
     public void delete(int id) {
         addressRepository.deleteById(id);
+    }
+
+    @Override
+    public List<GetAddressListResponse> containAdresssDetails(String addressDetail) {
+        List<Address> addressList=addressRepository.findByAddressDetailContaining(addressDetail);
+        List<GetAddressListResponse> getAddressListResponses =new ArrayList<>();
+        for (Address address:addressList){
+            GetAddressListResponse response = new GetAddressListResponse();
+            GetCityListResponse getCityListResponse=new GetCityListResponse(address.getCity().getName());
+            response.setAddressDetail(address.getAddressDetail());
+            response.setPostalCode(address.getPostalCode());
+            response.setCityListResponse(getCityListResponse);
+            getAddressListResponses.add(response);
+        }
+        return getAddressListResponses;
+    }
+
+    @Override
+    public List<GetAddressListResponse> nullAdressDetails() {
+        List<Address> addressList=addressRepository.findByAddressDetailIsNull();
+        List<GetAddressListResponse> getAddressListResponseList=new ArrayList<>();
+        for (Address address:addressList){
+            GetAddressListResponse response=new GetAddressListResponse();
+            GetCityListResponse getCityListResponse=new GetCityListResponse(address.getCity().getName());
+            response.setAddressDetail(address.getAddressDetail());
+            response.setPostalCode(address.getPostalCode());
+            response.setCityListResponse(getCityListResponse);
+            getAddressListResponseList.add(response);
+
+        }
+            return getAddressListResponseList;
+
     }
 }

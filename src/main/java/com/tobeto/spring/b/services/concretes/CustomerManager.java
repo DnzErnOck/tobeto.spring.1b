@@ -66,4 +66,32 @@ public class CustomerManager implements CustomerService {
     public void delete(int id) {
         customerRepository.deleteById(id);
     }
+
+    @Override
+    public List<GetListCustomerResponse> getGreaterAger(int age) {
+        List<Customer> customerList=customerRepository.findByAgeGreaterThan(age);
+        List<GetListCustomerResponse> getListCustomerResponses=new ArrayList<>();
+        for (Customer customer :customerList) {
+            GetListCustomerResponse response= new GetListCustomerResponse();
+            response.setName(customer.getName());
+            response.setSurName(customer.getSurName());
+            response.setAge(customer.getAge());
+            getListCustomerResponses.add(response);
+        }
+        return getListCustomerResponses;
+    }
+
+    @Override
+    public List<GetListCustomerResponse> getNameAndSurname(String name, String surName) {
+        List<Customer> customerList=customerRepository.findByNameAndSurName(name,surName);
+        List<GetListCustomerResponse> getListCustomerResponses=new ArrayList<>();
+        for (Customer customer : customerList) {
+            GetListCustomerResponse response= new GetListCustomerResponse();
+            response.setName(customer.getName());
+            response.setSurName(customer.getSurName());
+            response.setAge(customer.getAge());
+            getListCustomerResponses.add(response);
+        }
+        return getListCustomerResponses;
+    }
 }

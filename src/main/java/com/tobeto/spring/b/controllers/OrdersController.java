@@ -9,6 +9,7 @@ import com.tobeto.spring.b.repositories.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -39,5 +40,11 @@ public class OrdersController {
     public void delete(@PathVariable int id){
         orderService.delete(id);
     }
+
+    @GetMapping("getStartDateBetween")
+    public List<GetOrderListResponse> getAllByStartDateBetween(@RequestParam LocalDate date1, @RequestParam LocalDate date2){
+        return orderService.getAllByStartDateBetween(date1, date2);
+    }
+
 
 }

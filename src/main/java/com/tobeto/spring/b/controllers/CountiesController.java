@@ -40,4 +40,12 @@ public class CountiesController {
     public void delete(@PathVariable int id){
         countyService.delete(id);
     }
+    @GetMapping("name/{name}")
+    public List<GetCountyListResponse> getAllByName(@PathVariable String name){
+        return countyService.getAllByName(name);
+    }
+    @GetMapping("nameStarting/{name}")
+    public GetCountyResponse getStartByName(@PathVariable String name){
+        return countyService.getStartByName(name);
+    }
 }

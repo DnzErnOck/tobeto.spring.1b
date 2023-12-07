@@ -5,11 +5,13 @@ import com.tobeto.spring.b.repositories.OrderRepository;
 import com.tobeto.spring.b.services.abstracts.OrderService;
 import com.tobeto.spring.b.services.dtos.requests.order.AddOrderRequest;
 import com.tobeto.spring.b.services.dtos.requests.order.UpdateOrderRequest;
+import com.tobeto.spring.b.services.dtos.responses.customer.GetListCustomerResponse;
 import com.tobeto.spring.b.services.dtos.responses.order.GetOrderListResponse;
 import com.tobeto.spring.b.services.dtos.responses.order.GetOrderResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +28,7 @@ public class OrderManager implements OrderService {
         for (Order order:orderList) {
             GetOrderListResponse response = new GetOrderListResponse();
             response.setTotalPrice(order.getTotalPrice());
-            response.setPaymentType(order.getPaymentType());
+            response.setStartDate(order.getStartDate());
             getOrderListResponseList.add(response);
         }
         return getOrderListResponseList;
@@ -63,5 +65,20 @@ public class OrderManager implements OrderService {
     @Override
     public void delete(int id) {
         orderRepository.deleteById(id);
+    }
+
+    @Override
+    public List<GetOrderListResponse> getAllByStartDateBetween(LocalDate date1, LocalDate date2) {
+        List<Order> billList = orderRepository.findByStartDateBetween(date1, date2);
+        List<GetOrderListResponse> getOrderListResponseList = new ArrayList<>();
+        for (Order order:billList) {
+            GetOrderListResponse response = new GetOrderListResponse();
+            //GetListCustomerResponse responseCustomer = new GetListCustomerResponse(order.getCustomer().getName(),order.getCustomer().getSurName(),order.getCustomer().getAge());
+            response.setTotalPrice(order.getTotalPrice());
+            response.setStartDate(order.getStartDate());
+            //response.setCustomer(responseCustomer);
+            getOrderListResponseList.add(response);
+        }
+        return getOrderListResponseList;
     }
 }

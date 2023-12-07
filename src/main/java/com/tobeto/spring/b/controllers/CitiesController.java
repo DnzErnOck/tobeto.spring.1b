@@ -40,4 +40,13 @@ public class CitiesController {
     public void delete(@PathVariable int id){
         cityService.delete(id);
     }
+
+    @GetMapping("notName")
+    public GetCityResponse notName(@RequestParam String name){
+        return cityService.notName(name);
+    }
+    @GetMapping("nameNotLike")
+    public GetCityResponse nameNotLike(@RequestParam String name){
+        return cityService.nameNotLike(name);
+    }
 }

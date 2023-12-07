@@ -74,7 +74,7 @@ public class BillManager implements BillService {
         List<GetBillListResponse> getBillListResponses = new ArrayList<>();
         for (Bill bill:billList) {
             GetBillListResponse response = new GetBillListResponse();
-            GetListCustomerResponse responseCustomer = new GetListCustomerResponse(bill.getCustomer().getName(),bill.getCustomer().getSurName());
+            GetListCustomerResponse responseCustomer = new GetListCustomerResponse(bill.getCustomer().getName(),bill.getCustomer().getSurName(),bill.getCustomer().getAge());
             response.setTotalPrice(bill.getTotalPrice());
             response.setBillDate(bill.getBillDate());
             response.setCustomer(responseCustomer);

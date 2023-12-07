@@ -60,4 +60,20 @@ public class CityManager implements CityService {
     public void delete(int id) {
         cityRepository.deleteById(id);
     }
+
+    @Override
+    public GetCityResponse notName(String name) {
+        City city=cityRepository.findFirstByNameNotOrderByNameDesc(name);
+        GetCityResponse getCityResponse =new GetCityResponse();
+        getCityResponse.setName(city.getName());
+        return getCityResponse;
+    }
+
+    @Override
+    public GetCityResponse nameNotLike(String name) {
+        City city =cityRepository.findFirstByNameNotLikeOrderByNameDesc("%"+name+"%");
+        GetCityResponse getCityResponse =new GetCityResponse();
+        getCityResponse.setName(city.getName());
+        return getCityResponse;
+    }
 }
