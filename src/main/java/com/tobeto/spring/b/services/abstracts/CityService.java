@@ -1,5 +1,6 @@
 package com.tobeto.spring.b.services.abstracts;
 
+import com.tobeto.spring.b.entities.City;
 import com.tobeto.spring.b.services.dtos.requests.city.AddCityRequest;
 import com.tobeto.spring.b.services.dtos.requests.city.UpdateCityRequest;
 import com.tobeto.spring.b.services.dtos.responses.city.GetCityListResponse;
@@ -15,4 +16,7 @@ public interface CityService {
     void delete(int id);
     GetCityResponse notName(String name);
     GetCityResponse nameNotLike(String name);
+
+    List<GetCityListResponse> getByName(String name);
+    List<GetCityListResponse> getInName(String name1,String name2);
 }

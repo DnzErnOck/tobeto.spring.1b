@@ -76,4 +76,16 @@ public class CityManager implements CityService {
         getCityResponse.setName(city.getName());
         return getCityResponse;
     }
+
+    @Override
+    public List<GetCityListResponse> getByName(String name) {
+        return cityRepository.findByName(name);
+    }
+
+    @Override
+    public List<GetCityListResponse> getInName(String name1, String name2) {
+        return cityRepository.findInName(name1, name2);
+    }
+
+
 }

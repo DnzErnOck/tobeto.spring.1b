@@ -3,6 +3,7 @@ package com.tobeto.spring.b.controllers;
 import com.tobeto.spring.b.services.abstracts.CustomerService;
 import com.tobeto.spring.b.services.dtos.requests.customer.AddCustomerRequest;
 import com.tobeto.spring.b.services.dtos.requests.customer.UpdateCustomerRequest;
+import com.tobeto.spring.b.services.dtos.responses.city.GetCityListResponse;
 import com.tobeto.spring.b.services.dtos.responses.customer.GetCustomerResponse;
 import com.tobeto.spring.b.services.dtos.responses.customer.GetListCustomerResponse;
 import com.tobeto.spring.b.entities.Customer;
@@ -49,5 +50,13 @@ public class CustomersController {
     @GetMapping("getNameAndSurname")
     public List<GetListCustomerResponse> getNameAndSurname(@RequestParam String name, @RequestParam String surName){
         return customerService.getNameAndSurname(name,surName);
+    }
+    @GetMapping("getLessAge")
+    public List<GetListCustomerResponse> getLessAge(@RequestParam int age){
+        return customerService.getByLessAge(age);
+    }
+    @GetMapping("getBetweenAge")
+    public List<GetListCustomerResponse> getBetweenAge(@RequestParam int minAge,int maxAge){
+        return customerService.getBetweenAge(minAge,maxAge);
     }
 }

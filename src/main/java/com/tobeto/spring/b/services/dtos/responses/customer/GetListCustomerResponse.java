@@ -11,4 +11,5 @@ public class GetListCustomerResponse {
     private String name;
     private String surName;
     private int age;
+
 }

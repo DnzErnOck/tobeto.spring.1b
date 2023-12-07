@@ -1,5 +1,6 @@
 package com.tobeto.spring.b.services.abstracts;
 
+import com.tobeto.spring.b.entities.County;
 import com.tobeto.spring.b.services.dtos.requests.county.AddCountyRequest;
 import com.tobeto.spring.b.services.dtos.requests.county.UpdateCountyRequest;
 import com.tobeto.spring.b.services.dtos.responses.city.GetCityResponse;
@@ -16,4 +17,5 @@ public interface CountyService {
     void delete(int id);
     List<GetCountyListResponse> getAllByName(String name);
     GetCountyResponse getStartByName(String name);
+
 }

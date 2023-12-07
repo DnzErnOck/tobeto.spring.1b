@@ -49,4 +49,13 @@ public class CitiesController {
     public GetCityResponse nameNotLike(@RequestParam String name){
         return cityService.nameNotLike(name);
     }
+
+    @GetMapping("getByName")
+    public List<GetCityListResponse> getByName(@RequestParam String name){
+        return cityService.getByName(name);
+    }
+    @GetMapping("getInName")
+    public List<GetCityListResponse> getInName(@RequestParam String name1, String name2){
+        return cityService.getInName(name1,name2);
+    }
 }

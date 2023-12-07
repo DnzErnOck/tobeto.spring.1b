@@ -94,4 +94,14 @@ public class CustomerManager implements CustomerService {
         }
         return getListCustomerResponses;
     }
+
+    @Override
+    public List<GetListCustomerResponse> getByLessAge(int age) {
+        return customerRepository.findByLessAge(age);
+    }
+
+    @Override
+    public List<GetListCustomerResponse> getBetweenAge(int minAge, int maxAge) {
+        return customerRepository.findBetweenAge(minAge,maxAge);
+    }
 }

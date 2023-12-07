@@ -16,4 +16,6 @@ public interface CustomerService {
     void delete(int id);
     List<GetListCustomerResponse> getGreaterAger(int age);
     List<GetListCustomerResponse> getNameAndSurname(String name,String surName);
+    List<GetListCustomerResponse> getByLessAge(int age);
+    List<GetListCustomerResponse> getBetweenAge(int minAge, int maxAge);
 }
