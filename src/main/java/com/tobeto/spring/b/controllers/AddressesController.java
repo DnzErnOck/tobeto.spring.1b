@@ -7,6 +7,7 @@ import com.tobeto.spring.b.services.dtos.responses.address.GetAddressListRespons
 import com.tobeto.spring.b.services.dtos.responses.address.GetAddressResponse;
 import com.tobeto.spring.b.entities.Address;
 import com.tobeto.spring.b.repositories.AddressRepository;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,7 @@ public class AddressesController {
         return addressService.getById(id);
     }
     @PostMapping
-    public void add(@RequestBody AddAddressRequest addAddressRequest){
+    public void add(@RequestBody @Valid AddAddressRequest addAddressRequest){
         addressService.add(addAddressRequest);
     }
     @PutMapping("{id}")

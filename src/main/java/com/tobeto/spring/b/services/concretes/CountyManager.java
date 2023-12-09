@@ -44,6 +44,9 @@ public class CountyManager implements CountyService {
 
     @Override
     public void add(AddCountyRequest addCountyRequest) {
+        if (addCountyRequest.getName().length() <3){
+            throw new RuntimeException("İlçe ismi en az 3 karakterli olmalıdır.");
+        }
         County county = new County();
         county.setName(addCountyRequest.getName());
         countyRepository.save(county);

@@ -23,7 +23,7 @@ public class BrandManager implements BrandService {
         //aynı isimde iki marka olamaz
         //List<Brand> brandWithSameName =brandRepository.findByName(addBrandRequest.getName().trim());
         if (brandRepository.existsByName(addBrandRequest.getName().trim())){
-            throw  new RuntimeException("Aynı isimle iki marka giremez");
+            throw new RuntimeException("Aynı isimle iki marka giremez");
         }
 
         Brand brand =new Brand();

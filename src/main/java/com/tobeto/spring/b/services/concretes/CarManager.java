@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +46,13 @@ public class CarManager implements CarService {
 
     @Override
     public void add(AddCarRequest addCarRequest) {
+        int minYear = 1995;
+
+        if (addCarRequest.getModelYear() < minYear){
+            throw new RuntimeException(minYear + "yılından küçük araba eklenemez.");
+        }
+
+
         Car car = new Car();
         car.setModelName(addCarRequest.getModelName());
         car.setModelYear(addCarRequest.getModelYear());
@@ -53,6 +61,10 @@ public class CarManager implements CarService {
 
     @Override
     public void update(UpdateCarRequest updateCarRequest, int id) {
+        List<String> validColors = Arrays.asList("Red", "Blue", "Green", "White", "Black");
+        if(!validColors.contains(updateCarRequest.getColor())){
+            throw new RuntimeException("Geçersiz renk girdiniz. Lütfen geçerli bir renk seçin:\n" + validColors);
+        }
         Optional<Car> car= carRepository.findById(id);
         if (car.isPresent()){
             Car foundCar=car.get();

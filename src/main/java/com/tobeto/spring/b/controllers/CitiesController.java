@@ -7,6 +7,7 @@ import com.tobeto.spring.b.services.dtos.responses.city.GetCityListResponse;
 import com.tobeto.spring.b.services.dtos.responses.city.GetCityResponse;
 import com.tobeto.spring.b.entities.City;
 import com.tobeto.spring.b.repositories.CityRepository;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class CitiesController {
         return cityService.getById(id);
     }
     @PostMapping
-    public void add(@RequestBody AddCityRequest addCityRequest){
+    public void add(@RequestBody @Valid AddCityRequest addCityRequest){
         cityService.add(addCityRequest);
     }
     @PutMapping("{id}")

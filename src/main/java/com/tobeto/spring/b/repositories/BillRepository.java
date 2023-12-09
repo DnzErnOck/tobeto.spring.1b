@@ -12,6 +12,8 @@ public interface BillRepository extends JpaRepository<Bill,Integer> {
     List<Bill> findByBillDateAfter(LocalDate billDate);
     Bill findFirstByTotalPriceLessThanEqualOrderByTotalPriceDesc(Double totalPrice);
 
+    boolean existsByTotalPrice(Double totalPrice);
+
     @Query("select new com.tobeto.spring.b.services.dtos.responses.bill.GetBillListResponse(" +
            "b.totalPrice,b.billDate,new com.tobeto.spring.b.services.dtos.responses.customer.GetListCustomerResponse(c.name,c.surName,c.age))" +
             " from Bill b inner join b.customer c")

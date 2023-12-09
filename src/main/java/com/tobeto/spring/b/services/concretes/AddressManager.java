@@ -44,6 +44,10 @@ public class AddressManager implements AddressService {
 
     @Override
     public void add(AddAddressRequest addAddressRequest) {
+        int maxAddressDetail = 50;
+        if (addAddressRequest.getAddressDetail().length() > maxAddressDetail) {
+            throw new RuntimeException("Maksimum karakter sınırını aştınız.Lütfen daha kısa bir ver girişi yapınız.");
+        }
         Address address = new Address();
         address.setPostalCode(addAddressRequest.getPostalCode());
         address.setAddressDetail(addAddressRequest.getAddressDetail());

@@ -12,6 +12,8 @@ public interface CustomerRepository extends JpaRepository<Customer,Integer> {
     List<Customer> findByAgeGreaterThan(int age);
     List<Customer>  findByNameAndSurName(String name, String surName);
 
+    boolean existsByNameAndSurName(String name, String surName);
+
     @Query("select new com.tobeto.spring.b.services.dtos.responses.customer.GetListCustomerResponse(c.name,c.surName,c.age) from Customer c where c.age <= :age")
     List<GetListCustomerResponse> findByLessAge(int age);
 

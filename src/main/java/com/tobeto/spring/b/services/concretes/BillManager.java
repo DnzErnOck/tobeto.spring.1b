@@ -47,6 +47,14 @@ public class BillManager implements BillService {
 
     @Override
     public void add(AddBillRequest addBillRequest) {
+        Double minPrice = 50.0;
+        if (billRepository.existsByTotalPrice(addBillRequest.getTotalPrice()))
+        {
+            throw new RuntimeException("Ödeme ücreti boş geçilemez.");
+        }
+        if (addBillRequest.getTotalPrice() < minPrice){
+            throw new RuntimeException("Ödeme ücreti " + minPrice+ " küçük olamaz.");
+        }
         Bill bill = new Bill();
         bill.setTotalPrice(addBillRequest.getTotalPrice());
         billRepository.save(bill);

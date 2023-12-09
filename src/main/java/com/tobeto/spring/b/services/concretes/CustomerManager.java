@@ -46,6 +46,9 @@ public class CustomerManager implements CustomerService {
 
     @Override
     public void add(AddCustomerRequest addCustomerRequest) {
+        if(customerRepository.existsByNameAndSurName(addCustomerRequest.getName(),addCustomerRequest.getSurName())) {
+            throw new RuntimeException("Aynı isim ve soyisimde müşteri olamaz lütfen farklı isim ve soyisimle deneyiniz.");
+        }
         Customer customer=new Customer();
         customer.setName(addCustomerRequest.getName());
         customer.setSurName(addCustomerRequest.getSurName());

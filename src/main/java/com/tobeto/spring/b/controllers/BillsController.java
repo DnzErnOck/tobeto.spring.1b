@@ -7,6 +7,7 @@ import com.tobeto.spring.b.services.dtos.responses.bill.GetBillListResponse;
 import com.tobeto.spring.b.services.dtos.responses.bill.GetBillResponse;
 import com.tobeto.spring.b.entities.Bill;
 import com.tobeto.spring.b.repositories.BillRepository;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,7 +31,7 @@ public class BillsController {
         return billService.getById(id);
     }
     @PostMapping
-    public void add(@RequestBody AddBillRequest addBillRequest){
+    public void add(@RequestBody @Valid AddBillRequest  addBillRequest){
         billService.add(addBillRequest);
     }
     @PutMapping("{id}")

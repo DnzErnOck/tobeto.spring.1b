@@ -46,6 +46,9 @@ public class OrderManager implements OrderService {
 
     @Override
     public void add(AddOrderRequest addOrderRequest) {
+        if (addOrderRequest.getPaymentType().equals("kart")){
+            throw new RuntimeException("Kart ile ödeme alınmamaktadır. Lütfen farklı bir ödeme yöntemi giriniz.");
+        }
         Order order = new Order();
         order.setTotalPrice(addOrderRequest.getTotalPrice());
         order.setPaymentType(addOrderRequest.getPaymentType());

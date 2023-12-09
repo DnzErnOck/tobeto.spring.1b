@@ -41,6 +41,9 @@ public class CityManager implements CityService {
 
     @Override
     public void add(AddCityRequest addCityRequest) {
+        if (addCityRequest.getName().length() < 2) {
+            throw new RuntimeException("Şehir ismi en az 2 karakterli olmalıdır.");
+        }
         City city = new City();
         city.setName(addCityRequest.getName());
         cityRepository.save(city);
