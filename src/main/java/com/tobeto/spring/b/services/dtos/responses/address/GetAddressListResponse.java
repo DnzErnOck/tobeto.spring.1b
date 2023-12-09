@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 public class GetAddressListResponse {
     private String postalCode;
     private String addressDetail;
-    private GetCityListResponse cityListResponse;
+    private GetCityListResponse city;
+
 }

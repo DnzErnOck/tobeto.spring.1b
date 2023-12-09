@@ -50,4 +50,14 @@ public class BillsController {
     public GetBillResponse getByPrice(@RequestParam Double totalPrice){
         return billService.getByPrice(totalPrice);
     }
+
+    @GetMapping("getAllBill")
+    public List<GetBillListResponse> getAllBill(){
+        return billService.getAllBill();
+    }
+
+    @GetMapping("getTotalPriceLess")
+    public List<GetBillListResponse> getTotalPriceLessThanEqual(@RequestParam Double totalPrice){
+        return billService.getTotalPriceLessThanEqual(totalPrice);
+    }
 }

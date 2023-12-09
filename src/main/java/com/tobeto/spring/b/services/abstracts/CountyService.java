@@ -3,6 +3,7 @@ package com.tobeto.spring.b.services.abstracts;
 import com.tobeto.spring.b.entities.County;
 import com.tobeto.spring.b.services.dtos.requests.county.AddCountyRequest;
 import com.tobeto.spring.b.services.dtos.requests.county.UpdateCountyRequest;
+import com.tobeto.spring.b.services.dtos.responses.city.GetCityListResponse;
 import com.tobeto.spring.b.services.dtos.responses.city.GetCityResponse;
 import com.tobeto.spring.b.services.dtos.responses.county.GetCountyListResponse;
 import com.tobeto.spring.b.services.dtos.responses.county.GetCountyResponse;
@@ -18,4 +19,6 @@ public interface CountyService {
     List<GetCountyListResponse> getAllByName(String name);
     GetCountyResponse getStartByName(String name);
 
+    List<GetCountyListResponse> getByCountName(String name);
+    List<GetCountyListResponse> getByCityName(String name);
 }

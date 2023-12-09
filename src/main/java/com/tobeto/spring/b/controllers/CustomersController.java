@@ -4,6 +4,7 @@ import com.tobeto.spring.b.services.abstracts.CustomerService;
 import com.tobeto.spring.b.services.dtos.requests.customer.AddCustomerRequest;
 import com.tobeto.spring.b.services.dtos.requests.customer.UpdateCustomerRequest;
 import com.tobeto.spring.b.services.dtos.responses.city.GetCityListResponse;
+import com.tobeto.spring.b.services.dtos.responses.customer.FindBetweenAgeAvg;
 import com.tobeto.spring.b.services.dtos.responses.customer.GetCustomerResponse;
 import com.tobeto.spring.b.services.dtos.responses.customer.GetListCustomerResponse;
 import com.tobeto.spring.b.entities.Customer;
@@ -58,5 +59,9 @@ public class CustomersController {
     @GetMapping("getBetweenAge")
     public List<GetListCustomerResponse> getBetweenAge(@RequestParam int minAge,int maxAge){
         return customerService.getBetweenAge(minAge,maxAge);
+    }
+    @GetMapping("getCustomerAgeAvg")
+    public FindBetweenAgeAvg getBetweenAgeAvg(@RequestParam int minAge, int maxAge){
+        return customerService.getBetweenAgeAvg(minAge,maxAge);
     }
 }

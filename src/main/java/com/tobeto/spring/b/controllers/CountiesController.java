@@ -48,4 +48,13 @@ public class CountiesController {
     public GetCountyResponse getStartByName(@PathVariable String name){
         return countyService.getStartByName(name);
     }
+
+    @GetMapping("countyName/{name}")
+    public List<GetCountyListResponse> getByCountName(@PathVariable String name){
+        return countyService.getByCountName(name);
+    }
+    @GetMapping("cityName/{name}")
+    public List<GetCountyListResponse> getByCityName(@PathVariable String name){
+        return countyService.getByCityName(name);
+    }
 }

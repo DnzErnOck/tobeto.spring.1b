@@ -45,6 +45,16 @@ public class OrdersController {
     public List<GetOrderListResponse> getAllByStartDateBetween(@RequestParam LocalDate date1, @RequestParam LocalDate date2){
         return orderService.getAllByStartDateBetween(date1, date2);
     }
-
-
+    @GetMapping("getTotalPrice")
+    public GetOrderResponse getGreaterTotalPrice(@RequestParam double totalPrice){
+        return orderService.getGreaterTotalPrice(totalPrice);
+    }
+    @GetMapping("getPaymentTypeIsNull")
+    public List<GetOrderListResponse> getPaymentTypeIsNull(){
+        return orderService.getPaymentTypeIsNull();
+    }
+    @GetMapping("getByNameOrSurname")
+    public List<GetOrderListResponse> getByNameOrSurname(@RequestParam String name, @RequestParam String surName){
+        return orderService.getByNameOrSurname(name, surName);
+    }
 }

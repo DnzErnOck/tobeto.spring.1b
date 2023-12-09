@@ -16,4 +16,6 @@ public interface AddressService {
     void delete(int id);
     List<GetAddressListResponse> containAdresssDetails(String addressDetail);
     List<GetAddressListResponse> nullAdressDetails();
+    List<GetAddressListResponse> postalCodeIsNull();
+    List<GetAddressListResponse> cityNameIsNull();
 }

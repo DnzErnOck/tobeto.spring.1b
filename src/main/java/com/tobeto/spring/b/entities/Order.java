@@ -38,9 +38,9 @@ public class Order {
     @JoinColumn(name = "customer_id")
     private Customer customer;
 
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private Bill bill;
+    //@OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
+    //@JsonIgnore
+    //private Bill bill;
 
 
 }

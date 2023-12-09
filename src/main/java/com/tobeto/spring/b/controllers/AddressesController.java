@@ -8,6 +8,7 @@ import com.tobeto.spring.b.services.dtos.responses.address.GetAddressResponse;
 import com.tobeto.spring.b.entities.Address;
 import com.tobeto.spring.b.repositories.AddressRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -49,5 +50,15 @@ public class AddressesController {
     @GetMapping("nullAddressDetails")
     public List<GetAddressListResponse> nullAdressDetails(){
         return addressService.nullAdressDetails();
+    }
+
+    @GetMapping("postalCodeIsNull")
+    public List<GetAddressListResponse> postalCodeIsNull(){
+        return addressService.postalCodeIsNull();
+    }
+
+    @GetMapping("cityNameIsNull")
+    public List<GetAddressListResponse> cityNameIsNull(){
+        return addressService.cityNameIsNull();
     }
 }

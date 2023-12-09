@@ -17,4 +17,7 @@ public interface BillService {
     void delete(int id);
     List<GetBillListResponse> searchDate(LocalDate billDate);
     GetBillResponse getByPrice(Double totalPrice);
+    List<GetBillListResponse> getAllBill();
+
+    List<GetBillListResponse> getTotalPriceLessThanEqual(Double totalPrice);
 }

@@ -5,6 +5,7 @@ import com.tobeto.spring.b.repositories.OrderRepository;
 import com.tobeto.spring.b.services.abstracts.OrderService;
 import com.tobeto.spring.b.services.dtos.requests.order.AddOrderRequest;
 import com.tobeto.spring.b.services.dtos.requests.order.UpdateOrderRequest;
+import com.tobeto.spring.b.services.dtos.responses.customer.GetCustomerResponse;
 import com.tobeto.spring.b.services.dtos.responses.customer.GetListCustomerResponse;
 import com.tobeto.spring.b.services.dtos.responses.order.GetOrderListResponse;
 import com.tobeto.spring.b.services.dtos.responses.order.GetOrderResponse;
@@ -81,4 +82,26 @@ public class OrderManager implements OrderService {
         }
         return getOrderListResponseList;
     }
+
+    @Override
+    public GetOrderResponse getGreaterTotalPrice(double totalPrice) {
+        Order order = orderRepository.findFirstByTotalPriceGreaterThanOrderByTotalPriceDesc(totalPrice);
+        GetOrderResponse response = new GetOrderResponse();
+        GetCustomerResponse customerResponse=new GetCustomerResponse(order.getCustomer().getName(), order.getCustomer().getSurName());
+        response.setTotalPrice(order.getTotalPrice());
+        response.setPaymentType(order.getPaymentType());
+        response.setCustomer(customerResponse);
+        return response;
+    }
+
+    @Override
+    public List<GetOrderListResponse> getPaymentTypeIsNull() {
+        return orderRepository.findPaymentTypeIsNull();
+    }
+
+    @Override
+    public List<GetOrderListResponse> getByNameOrSurname(String name, String surName) {
+        return orderRepository.findByNameOrSurname(name, surName);
+    }
+
 }

@@ -10,5 +10,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GetCountyListResponse {
     private String name;
-    private GetCityListResponse getCityListResponse;
+    private GetCityListResponse city;
 }

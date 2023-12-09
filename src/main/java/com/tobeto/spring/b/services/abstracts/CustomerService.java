@@ -3,6 +3,7 @@ package com.tobeto.spring.b.services.abstracts;
 import com.tobeto.spring.b.services.dtos.requests.address.UpdateAddressRequest;
 import com.tobeto.spring.b.services.dtos.requests.customer.AddCustomerRequest;
 import com.tobeto.spring.b.services.dtos.requests.customer.UpdateCustomerRequest;
+import com.tobeto.spring.b.services.dtos.responses.customer.FindBetweenAgeAvg;
 import com.tobeto.spring.b.services.dtos.responses.customer.GetCustomerResponse;
 import com.tobeto.spring.b.services.dtos.responses.customer.GetListCustomerResponse;
 
@@ -18,4 +19,5 @@ public interface CustomerService {
     List<GetListCustomerResponse> getNameAndSurname(String name,String surName);
     List<GetListCustomerResponse> getByLessAge(int age);
     List<GetListCustomerResponse> getBetweenAge(int minAge, int maxAge);
+    FindBetweenAgeAvg getBetweenAgeAvg(int minAge, int maxAge);
 }

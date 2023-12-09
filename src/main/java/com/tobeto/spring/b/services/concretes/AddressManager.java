@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+@Service()
 @AllArgsConstructor
 public class AddressManager implements AddressService {
     private final AddressRepository addressRepository;
@@ -75,7 +75,7 @@ public class AddressManager implements AddressService {
             GetCityListResponse getCityListResponse=new GetCityListResponse(address.getCity().getName());
             response.setAddressDetail(address.getAddressDetail());
             response.setPostalCode(address.getPostalCode());
-            response.setCityListResponse(getCityListResponse);
+            response.setCity(getCityListResponse);
             getAddressListResponses.add(response);
         }
         return getAddressListResponses;
@@ -90,11 +90,21 @@ public class AddressManager implements AddressService {
             GetCityListResponse getCityListResponse=new GetCityListResponse(address.getCity().getName());
             response.setAddressDetail(address.getAddressDetail());
             response.setPostalCode(address.getPostalCode());
-            response.setCityListResponse(getCityListResponse);
+            response.setCity(getCityListResponse);
             getAddressListResponseList.add(response);
 
         }
             return getAddressListResponseList;
 
+    }
+
+    @Override
+    public List<GetAddressListResponse> postalCodeIsNull() {
+        return addressRepository.findPostalCodeIsNull();
+    }
+
+    @Override
+    public List<GetAddressListResponse> cityNameIsNull() {
+        return addressRepository.findCityNameIsNull();
     }
 }

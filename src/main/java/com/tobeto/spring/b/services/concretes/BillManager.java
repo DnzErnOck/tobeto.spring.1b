@@ -94,4 +94,14 @@ public class BillManager implements BillService {
         getBillResponse.setAddressResponse(getAddressResponse);
         return getBillResponse;
     }
+
+    @Override
+    public List<GetBillListResponse> getAllBill() {
+        return billRepository.findAllBill();
+    }
+
+    @Override
+    public List<GetBillListResponse> getTotalPriceLessThanEqual(Double totalPrice) {
+        return billRepository.findByTotalPriceLessThanEqualOrderByTotalPriceDesc(totalPrice);
+    }
 }

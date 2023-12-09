@@ -72,7 +72,7 @@ public class CountyManager implements CountyService {
             GetCountyListResponse response = new GetCountyListResponse();
             GetCityListResponse cityListResponse = new GetCityListResponse(county.getCity().getName());
             response.setName(county.getName());
-            response.setGetCityListResponse(cityListResponse);
+            response.setCity(cityListResponse);
             getCountyListResponseList.add(response);
         }
         return getCountyListResponseList;
@@ -86,5 +86,15 @@ public class CountyManager implements CountyService {
         response.setName(county.getName());
         response.setCity(city);
         return response;
+    }
+
+    @Override
+    public List<GetCountyListResponse> getByCountName(String name) {
+        return countyRepository.findByCountyName(name);
+    }
+
+    @Override
+    public List<GetCountyListResponse> getByCityName(String name) {
+        return countyRepository.findByCityName(name);
     }
 }

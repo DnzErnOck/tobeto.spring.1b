@@ -14,5 +14,5 @@ import java.time.LocalDate;
 public class GetOrderListResponse {
     private double totalPrice;
     private LocalDate startDate;
-    //private GetListCustomerResponse customer;
+    private GetListCustomerResponse customer;
 }

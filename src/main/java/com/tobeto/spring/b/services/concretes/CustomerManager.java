@@ -6,6 +6,7 @@ import com.tobeto.spring.b.services.abstracts.CustomerService;
 import com.tobeto.spring.b.services.dtos.requests.address.UpdateAddressRequest;
 import com.tobeto.spring.b.services.dtos.requests.customer.AddCustomerRequest;
 import com.tobeto.spring.b.services.dtos.requests.customer.UpdateCustomerRequest;
+import com.tobeto.spring.b.services.dtos.responses.customer.FindBetweenAgeAvg;
 import com.tobeto.spring.b.services.dtos.responses.customer.GetCustomerResponse;
 import com.tobeto.spring.b.services.dtos.responses.customer.GetListCustomerResponse;
 import lombok.AllArgsConstructor;
@@ -103,5 +104,10 @@ public class CustomerManager implements CustomerService {
     @Override
     public List<GetListCustomerResponse> getBetweenAge(int minAge, int maxAge) {
         return customerRepository.findBetweenAge(minAge,maxAge);
+    }
+
+    @Override
+    public FindBetweenAgeAvg getBetweenAgeAvg(int minAge, int maxAge) {
+        return customerRepository.findBetweenAgeAvg(minAge,maxAge);
     }
 }
