@@ -7,6 +7,7 @@ import com.tobeto.spring.b.services.dtos.responses.county.GetCountyListResponse;
 import com.tobeto.spring.b.services.dtos.responses.county.GetCountyResponse;
 import com.tobeto.spring.b.entities.County;
 import com.tobeto.spring.b.repositories.CountyRepository;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,7 +30,7 @@ public class CountiesController {
         return countyService.getById(id);
     }
     @PostMapping
-    public void add(@RequestBody AddCountyRequest addCountyRequest){
+    public void add(@RequestBody @Valid AddCountyRequest addCountyRequest){
         countyService.add(addCountyRequest);
     }
     @PutMapping("{id}")

@@ -1,7 +1,9 @@
 package com.tobeto.spring.b;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
 
 //localhost:8080/api/persons
 //Annotation
@@ -12,5 +14,8 @@ public class Application {
         //springi devreye alır
         SpringApplication.run(Application.class, args);
     }
-
+    @Bean
+    public ModelMapper getModelMapper(){
+        return new ModelMapper();
+    }
 }

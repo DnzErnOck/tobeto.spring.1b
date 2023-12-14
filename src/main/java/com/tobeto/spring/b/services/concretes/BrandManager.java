@@ -1,5 +1,6 @@
 package com.tobeto.spring.b.services.concretes;
 
+import com.tobeto.spring.b.core.utilities.mappers.ModelMapperService;
 import com.tobeto.spring.b.entities.Brand;
 import com.tobeto.spring.b.repositories.BrandRepository;
 import com.tobeto.spring.b.services.abstracts.BrandService;
@@ -13,11 +14,13 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @Service
 public class BrandManager implements BrandService {
     private final BrandRepository brandRepository;
+    private final ModelMapperService modelMapperService;
     @Override
     public void add(AddBrandRequest addBrandRequest) {
         //aynı isimde iki marka olamaz
@@ -25,10 +28,8 @@ public class BrandManager implements BrandService {
         if (brandRepository.existsByName(addBrandRequest.getName().trim())){
             throw new RuntimeException("Aynı isimle iki marka giremez");
         }
+        Brand brand = this.modelMapperService.forRequest().map(addBrandRequest,Brand.class);
 
-        Brand brand =new Brand();
-        brand.setName(addBrandRequest.getName());
-        brandRepository.save(brand);
     }
 
     @Override
@@ -42,12 +43,9 @@ public class BrandManager implements BrandService {
     @Override
     public List<GetBrandListResponse> getAll() {
         List<Brand> brandList= brandRepository.findAll();
-        List<GetBrandListResponse> getBrandListResponseList=new ArrayList<>();
-        for (Brand brand: brandList) {
-            GetBrandListResponse response = new GetBrandListResponse();
-            response.setName(brand.getName());
-            getBrandListResponseList.add(response);
-        }
+        List<GetBrandListResponse> getBrandListResponseList =brandList.stream().
+                map(brand -> this.modelMapperService.forResponse().map(brand,GetBrandListResponse.class)).collect(Collectors.toList());
+
         return getBrandListResponseList;
     }
 
